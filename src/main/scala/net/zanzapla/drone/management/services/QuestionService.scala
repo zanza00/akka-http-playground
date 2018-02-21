@@ -24,7 +24,7 @@ class QuestionService(implicit val executionContext: ExecutionContext) {
   def updateQuestion(id: String, update: QuestionUpdate): Future[Option[Question]] = {
 
     def updateEntity(question: Question): Question = {
-      val title = update.title.getOrElse(question.title)
+      val title: String = update.title.getOrElse(question.title)
       val text = update.text.getOrElse(question.text)
       Question(id, title, text)
     }
