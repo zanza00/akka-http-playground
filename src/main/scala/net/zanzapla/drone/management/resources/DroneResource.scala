@@ -20,9 +20,7 @@ trait DroneResource extends MyResource {
           complete(droneService.getDrone(id))
         } ~
           post {
-            entity(as[DroneUpdate]) { payload =>
-              complete(droneService.updateDrone(id, payload))
-            }
+            complete(droneService.updateDrone(id))
           }
       }
   }

@@ -25,7 +25,7 @@ class DroneService(implicit val executionContext: ExecutionContext) {
     }
   }
 
-  def updateDrone(id: String, payload: Any): Future[Option[Drone]] =  {
+  def updateDrone(id: String): Future[Option[Drone]] =  {
 
     def updateEntity(drone: Drone): Drone = {
       val status: String = drone.status match {
