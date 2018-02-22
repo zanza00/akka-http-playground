@@ -10,12 +10,12 @@ trait DroneResource extends MyResource {
   val droneService: DroneService
 
   def droneRoutes: Route = pathPrefix("drones") {
-    pathEnd {
+    pathEndOrSingleSlash {
       get {
         complete(droneService.getDrones())
       }
     } ~
-      path(Segment) { id =>
+      path(IntNumber) { id =>
         get {
           complete(droneService.getDrone(id))
         } ~

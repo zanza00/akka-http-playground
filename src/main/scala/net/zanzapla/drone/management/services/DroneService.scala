@@ -12,8 +12,8 @@ class DroneService(implicit val executionContext: ExecutionContext) {
     dronesDB.toList
   }
 
-  def getDrone(id: String): Future[Option[Drone]] = Future {
-    dronesDB.find(_.id == id.toInt)
+  def getDrone(id: Int): Future[Option[Drone]] = Future {
+    dronesDB.find(_.id == id)
   }
 
   def createDrone(drone: Drone): Future[Option[Drone]] = Future {
@@ -25,7 +25,7 @@ class DroneService(implicit val executionContext: ExecutionContext) {
     }
   }
 
-  def updateDrone(id: String): Future[Option[Drone]] =  {
+  def updateDrone(id: Int): Future[Option[Drone]] =  {
 
     def updateEntity(drone: Drone): Drone = {
       val status: String = drone.status match {
@@ -49,8 +49,8 @@ class DroneService(implicit val executionContext: ExecutionContext) {
 
   }
 
-  def deleteDrone(id: String): Future[Unit] = Future {
-    dronesDB = dronesDB.filterNot(_.id == id.toInt)
+  def deleteDrone(id: Int): Future[Unit] = Future {
+    dronesDB = dronesDB.filterNot(_.id == id)
   }
 
 }
