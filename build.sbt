@@ -1,10 +1,10 @@
 enablePlugins(JavaServerAppPackaging)
 
-name := "drone-management-service"
+name := "drone-service"
 
 version := "0.1"
 
-organization := "com.danielasfregola"
+organization := "net.zanzapla"
 
 scalaVersion := "2.12.2"
 
@@ -30,4 +30,4 @@ libraryDependencies ++= {
 // Assembly settings
 mainClass in Global := Some("net.zanzapla.drone.management.Main")
 
-assemblyJarName in assembly := "drone-management-server.jar"
+assemblyJarName in assembly := "drone-service-server.jar"

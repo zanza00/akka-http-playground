@@ -1,11 +1,11 @@
-package net.zanzapla.drone.management.routing
+package net.zanzapla.drone.service.routing
 
 import akka.http.scaladsl.marshalling.{ToResponseMarshallable, ToResponseMarshaller}
 
 import scala.concurrent.{ExecutionContext, Future}
 import akka.http.scaladsl.model.headers.Location
 import akka.http.scaladsl.server.{Directives, Route}
-import net.zanzapla.drone.management.serializers.JsonSupport
+import net.zanzapla.drone.service.serializers.JsonSupport
 
 trait MyResource extends Directives with JsonSupport {
 

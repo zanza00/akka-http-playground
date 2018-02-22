@@ -1,4 +1,4 @@
-package net.zanzapla.drone.management.serializers
+package net.zanzapla.drone.service.serializers
 
 import java.sql.Timestamp
 

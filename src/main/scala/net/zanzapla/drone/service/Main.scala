@@ -1,24 +1,25 @@
-package net.zanzapla.drone.management
+package net.zanzapla.drone.service
 
 import scala.concurrent.duration._
 import akka.actor._
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
 import akka.util.Timeout
-
 import com.typesafe.config.ConfigFactory
+
+import scala.concurrent.ExecutionContextExecutor
 
 object Main extends App with RestInterface {
   val config = ConfigFactory.load()
   val host = config.getString("http.host")
   val port = config.getInt("http.port")
 
-  implicit val system = ActorSystem("drone-management-service")
-  implicit val materializer = ActorMaterializer()
+  implicit val system: ActorSystem = ActorSystem("drone-management-service")
+  implicit val materializer: ActorMaterializer = ActorMaterializer()
 
 
-  implicit val executionContext = system.dispatcher
-  implicit val timeout = Timeout(10 seconds)
+  implicit val executionContext: ExecutionContextExecutor = system.dispatcher
+  implicit val timeout: Timeout = Timeout(10 seconds)
 
   val api = routes
 

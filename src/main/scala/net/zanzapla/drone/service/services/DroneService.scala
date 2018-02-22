@@ -1,6 +1,6 @@
-package net.zanzapla.drone.management.services
+package net.zanzapla.drone.service.services
 
-import net.zanzapla.drone.management.entities.Drone
+import net.zanzapla.drone.service.entities.Drone
 
 import scala.concurrent.{ExecutionContext, Future}
 

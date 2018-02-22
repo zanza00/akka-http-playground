@@ -1,9 +1,9 @@
-package net.zanzapla.drone.management
+package net.zanzapla.drone.service
 
 import scala.concurrent.ExecutionContext
 import akka.http.scaladsl.server.Route
-import net.zanzapla.drone.management.resources.DroneResource
-import net.zanzapla.drone.management.services.DroneService
+import net.zanzapla.drone.service.resources.DroneResource
+import net.zanzapla.drone.service.services.DroneService
 
 trait RestInterface extends Resources {
 

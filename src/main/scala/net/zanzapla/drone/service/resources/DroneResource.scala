@@ -1,9 +1,9 @@
-package net.zanzapla.drone.management.resources
+package net.zanzapla.drone.service.resources
 
 import akka.http.scaladsl.server.Route
-import net.zanzapla.drone.management.routing.MyResource
-import net.zanzapla.drone.management.services.DroneService
-import net.zanzapla.drone.management.entities.DroneUpdate
+import net.zanzapla.drone.service.routing.MyResource
+import net.zanzapla.drone.service.services.DroneService
+import net.zanzapla.drone.service.entities.DroneUpdate
 
 trait DroneResource extends MyResource {
 
