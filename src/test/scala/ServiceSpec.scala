@@ -13,7 +13,7 @@ class ServiceSpec extends WordSpec with Matchers with ScalatestRouteTest with Mo
 
   override val droneService: DroneService = mock[DroneService]
 
-  override implicit def executionContext: ExecutionContext = global
+  override def executionContext: ExecutionContext = global
 
   "The service" should {
 
