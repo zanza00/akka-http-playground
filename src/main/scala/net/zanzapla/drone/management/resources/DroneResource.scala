@@ -22,7 +22,15 @@ trait DroneResource extends MyResource {
           post {
             complete(droneService.updateDrone(id))
           }
-      }
+      } ~
+    path(Segment) { id =>
+      get{
+        complete("it's a string")
+      } ~
+        post {
+          complete(Map("message" -> "not a valid identifier"))
+        }
+    }
   }
 }
 
