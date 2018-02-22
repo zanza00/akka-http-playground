@@ -26,6 +26,9 @@ trait MyResource extends Directives with JsonSupport {
       }
     }
 
+  def completeWithError(status: Int ,message: String):Route  = complete(status, Map("error" -> message))
+
+
   def complete[T: ToResponseMarshaller](resource: Future[Option[T]]): Route =
     onSuccess(resource) {
       case Some(t) => complete(ToResponseMarshallable(t))
