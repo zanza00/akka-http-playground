@@ -33,6 +33,6 @@ libraryDependencies ++= {
 }
 
 // Assembly settings
-mainClass in Global := Some("net.zanzapla.drone.management.Main")
+mainClass in Global := Some("net.zanzapla.drone.service.Main")
 
 assemblyJarName in assembly := "drone-service-server.jar"
