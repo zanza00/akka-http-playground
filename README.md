@@ -21,6 +21,23 @@ Run the service:
 
 The service runs on port 5000 by default.
 
+## Docker
+
+This repo can be run with Docker, first you need to build
+
+```
+> docker build .
+```
+
+Once the build it's finished, copy the docker id and run the container using
+
+```
+> docker run -d -p 5000:5000 <docker_id_here>
+```
+
+this exposes the webserver on `localhost:5000`
+
+
 ## Usage
 
 Question entity:
