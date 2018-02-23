@@ -5,7 +5,7 @@ import net.zanzapla.drone.service.services.DroneService
 import org.scalamock.scalatest.MockFactory
 import org.scalatest._
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
 
 
@@ -18,8 +18,17 @@ class ServiceSpec extends WordSpec with Matchers with ScalatestRouteTest with Mo
   "The service" should {
 
     "Return an empty list the first time" in {
+      (droneService.getDrones _).expects().returning(Future{List()})
       Get("/drones") ~> droneRoutes ~> check {
         status shouldBe StatusCodes.OK
+      }
+    }
+
+
+    "Return an error if the drone is not yet seen" in {
+      (droneService.getDrone _).expects(1).returning(Future{None})
+      Get("/drones/1") ~> droneRoutes ~> check {
+        status shouldBe StatusCodes.NotFound
       }
     }
   }
