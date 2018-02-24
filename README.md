@@ -1,6 +1,6 @@
 # Drone Service
 
-My experiment in understanding RESTful in scala
+My experiment in understanding RESTful in scala :crystal_ball: :space_invader:
 
 ## How to run the service
 
@@ -38,7 +38,7 @@ This exposes the webserver on port 5000 for consistency
 
 The service use one endpoint `/drones` for all of it's operations
 
-For the rest of this guide I will be using [HTTPie](https://httpie.org/) because I like it :)
+For the rest of this guide I will be using [HTTPie](https://httpie.org/) because I like it :sunglasses:
 
 ### Create or update a drone
 
