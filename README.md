@@ -1,22 +1,19 @@
-# Quiz Management Service
-Tutorial on how to build a REST CRUD application with Akka-Http
+# Drone Service
 
-Article: http://danielasfregola.com/2016/02/07/how-to-build-a-rest-api-with-akka-http/
+My experiment in understanding RESTful in scala :crystal_ball: :space_invader:
 
 ## How to run the service
-Clone the repository:
-```
-> git clone https://github.com/DanielaSfregola/quiz-management-service.git
-```
 
-Get to the `akka-http-crud` folder:
-```
-> cd akka-http-crud
+Clone the repository:
+
+```bash
+❯ git clone https://github.com/zanza00/akka-http-playground.git
 ```
 
 Run the service:
-```
-> sbt run
+
+```bash
+❯ sbt run
 ```
 
 The service runs on port 5000 by default.
@@ -25,185 +22,235 @@ The service runs on port 5000 by default.
 
 This repo can be run with Docker, first you need to build
 
-```
-> docker build .
-```
-
-Once the build it's finished, copy the docker id and run the container using
-
-```
-> docker run -d -p 5000:5000 <docker_id_here>
+```bash
+❯ docker build . -t drone-service
 ```
 
-this exposes the webserver on `localhost:5000`
+Once the build it's finished, you can run it using the tag
 
+```bash
+❯ docker run -d -p 5000:5000 drone-service
+```
+
+This exposes the webserver on port 5000 for consistency
 
 ## Usage
 
-Question entity:
-```
-case class Question(id: String, title: String, text: String)
-```
+The service use one endpoint `/drones` for all of it's operations
 
-### Create a question
+For the rest of this guide I will be using [HTTPie](https://httpie.org/) because I like it :sunglasses:
+
+### Create or update a drone
+
+#### Create a new drone
+
+To create or update the drone use __POST__
+The first time that a drones _ID_ is passed the status is always _OUT_
+
 Request:
-```
-curl -v -H "Content-Type: application/json" \
-	 -X POST http://localhost:5000/questions \
-	 -d '{"id": "test", "title": "MyTitle", "text":"The text of my question"}'
-```
-Response if the question has been created:
-```
-*   Trying ::1...
-* Connected to localhost (::1) port 5000 (#0)
-> POST /questions HTTP/1.1
-> Host: localhost:5000
-> User-Agent: curl/7.43.0
-> Accept: */*
-> Content-Type: application/json
-> Content-Length: 68
-> 
-* upload completely sent off: 68 out of 68 bytes
-< HTTP/1.1 201 Created
-< Location: http://localhost:5000/questions/test
-< Server: akka-http/2.3.12
-< Date: Sun, 07 Feb 2016 11:16:50 GMT
-< Content-Type: application/json
-< Content-Length: 0
-< 
-* Connection #0 to host localhost left intact
 
-```
-Response if the question with the specified id already exists:
-```
-*   Trying ::1...
-* Connected to localhost (::1) port 5000 (#0)
-> POST /questions HTTP/1.1
-> Host: localhost:5000
-> User-Agent: curl/7.43.0
-> Accept: */*
-> Content-Type: application/json
-> Content-Length: 68
-> 
-* upload completely sent off: 68 out of 68 bytes
-< HTTP/1.1 409 Conflict
-< Server: akka-http/2.3.12
-< Date: Sun, 07 Feb 2016 11:17:07 GMT
-< Content-Type: application/json
-< Content-Length: 0
-< 
-* Connection #0 to host localhost left intact
+```bash
+❯ http -v POST localhost:5000/drones/1
 ```
 
-
-### Get a question
-Request:
-```
-curl -v http://localhost:5000/questions/test
-```
-Response if the question exists:
-```
-*   Trying ::1...
-* Connected to localhost (::1) port 5000 (#0)
-> GET /questions/test HTTP/1.1
-> Host: localhost:5000
-> User-Agent: curl/7.43.0
-> Accept: */*
-> 
-< HTTP/1.1 200 OK
-< Server: akka-http/2.3.12
-< Date: Sun, 07 Feb 2016 11:17:31 GMT
-< Content-Type: application/json
-< Content-Length: 64
-< 
-* Connection #0 to host localhost left intact
-{"id":"test","title":"MyTitle","text":"The text of my question"}
-```
-Response if the question does not exist:
-```
-*   Trying ::1...
-* Connected to localhost (::1) port 5000 (#0)
-> GET /questions/non-existing-question HTTP/1.1
-> Host: localhost:5000
-> User-Agent: curl/7.43.0
-> Accept: */*
-> 
-< HTTP/1.1 404 Not Found
-< Server: akka-http/2.3.12
-< Date: Sun, 07 Feb 2016 11:18:40 GMT
-< Content-Type: application/json
-< Content-Length: 0
-< 
-* Connection #0 to host localhost left intact
-```
-
-### Update a question
-Request:
-```
-curl -v -H "Content-Type: application/json" \
-	 -X PUT http://localhost:5000/questions/test \
-	 -d '{"text":"Another text"}'
-```
-Response if the question has been updated:
-```
-*   Trying ::1...
-* Connected to localhost (::1) port 5000 (#0)
-> PUT /questions/test HTTP/1.1
-> Host: localhost:5000
-> User-Agent: curl/7.43.0
-> Accept: */*
-> Content-Type: application/json
-> Content-Length: 23
-> 
-* upload completely sent off: 23 out of 23 bytes
-< HTTP/1.1 200 OK
-< Server: akka-http/2.3.12
-< Date: Sun, 07 Feb 2016 11:19:31 GMT
-< Content-Type: application/json
-< Content-Length: 53
-< 
-* Connection #0 to host localhost left intact
-{"id":"test","title":"MyTitle","text":"Another text"}
-```
-Response if the question could not be updated:
-```
-*   Trying ::1...
-* Connected to localhost (::1) port 5000 (#0)
-> PUT /questions/non-existing-question HTTP/1.1
-> Host: localhost:5000
-> User-Agent: curl/7.43.0
-> Accept: */*
-> Content-Type: application/json
-> Content-Length: 23
-> 
-* upload completely sent off: 23 out of 23 bytes
-< HTTP/1.1 404 Not Found
-< Server: akka-http/2.3.12
-< Date: Sun, 07 Feb 2016 11:20:07 GMT
-< Content-Type: application/json
-< Content-Length: 0
-< 
-* Connection #0 to host localhost left intact
-```
-
-### Delete a question
-Request:
-```
-curl -v -X DELETE http://localhost:5000/questions/test
-```
 Response:
+
+```text
+POST /drones/1 HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Content-Length: 0
+Host: localhost:5000
+User-Agent: HTTPie/0.9.9
+
+HTTP/1.1 200 OK
+Content-Length: 23
+Content-Type: application/json
+Date: Sat, 24 Feb 2018 12:21:43 GMT
+Server: akka-http/10.0.6
+
+{
+    "id": 1,
+    "status": "OUT"
+}
 ```
-*   Trying ::1...
-* Connected to localhost (::1) port 5000 (#0)
-> DELETE /questions/test HTTP/1.1
-> Host: localhost:5000
-> User-Agent: curl/7.43.0
-> Accept: */*
-> 
-< HTTP/1.1 204 No Content
-< Server: akka-http/2.3.12
-< Date: Sun, 07 Feb 2016 11:20:30 GMT
-< Content-Type: application/json
-< 
-* Connection #0 to host localhost left intact
+
+#### Update a drone
+
+Any subsequent call at the same _ID_ will flip the status between _IN_ and _OUT_
+
+Response:
+
+```text
+POST /drones/1 HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Content-Length: 0
+Host: localhost:5000
+User-Agent: HTTPie/0.9.9
+
+HTTP/1.1 200 OK
+Content-Length: 22
+Content-Type: application/json
+Date: Sat, 24 Feb 2018 12:41:34 GMT
+Server: akka-http/10.0.6
+
+{
+    "id": 1,
+    "status": "IN"
+}
 ```
+
+#### Update Errors
+
+Please note that the _ID_ is of type _Int_.
+Attempting to call with anything else will result in an error `406 Not Acceptable`.
+
+Request:
+
+```bash
+❯ http -v POST localhost:5000/drones/not-a-valid-id
+```
+
+Response:
+
+```test
+POST /drones/not-a-valid-id HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Content-Length: 0
+Host: localhost:5000
+User-Agent: HTTPie/0.9.9
+
+HTTP/1.1 406 Not Acceptable
+Content-Length: 22
+Content-Type: application/json
+Date: Sat, 24 Feb 2018 12:50:05 GMT
+Server: akka-http/10.0.6
+
+{
+    "error": "invalid ID"
+}
+```
+
+### Get a drone status
+
+#### Get a specific drone status
+
+It's possible to get the status of any drone by using __GET__.
+
+Request:
+
+```bash
+> http -v localhost:5000/drones/1
+```
+
+Response:
+
+```text
+GET /drones/1 HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Host: localhost:5000
+User-Agent: HTTPie/0.9.9
+
+HTTP/1.1 200 OK
+Content-Length: 22
+Content-Type: application/json
+Date: Sat, 24 Feb 2018 12:45:07 GMT
+Server: akka-http/10.0.6
+
+{
+    "id": 1,
+    "status": "IN"
+}
+
+```
+
+If the drone it's not found the service will respond accordingly
+
+Request:
+
+```bash
+> http -v localhost:5000/drones/1000
+```
+
+Response:
+
+```text
+GET /drones/1000 HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Host: localhost:5000
+User-Agent: HTTPie/0.9.9
+
+HTTP/1.1 404 Not Found
+Content-Length: 0
+Content-Type: application/json
+Date: Sat, 24 Feb 2018 12:48:38 GMT
+Server: akka-http/10.0.6
+```
+
+#### Get Errors
+
+If it's called with an incorrect _ID_ (i.e. not an _Int_) the same response as [POST](#Update-Errors) will be given.
+
+### Get all drones
+
+To get a list of all the currently known drone simply __GET__ without any _ID_
+
+Request:
+
+```bash
+❯ http -v localhost:5000/drones/
+```
+
+Response:
+
+```text
+GET /drones/ HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Host: localhost:5000
+User-Agent: HTTPie/0.9.9
+
+
+HTTP/1.1 200 OK
+Content-Length: 47
+Content-Type: application/json
+Date: Sat, 24 Feb 2018 13:04:03 GMT
+Server: akka-http/10.0.6
+
+[
+    {
+        "id": 3,
+        "status": "OUT"
+    },
+    {
+        "id": 1,
+        "status": "IN"
+    }
+]
+```
+
+## Todo
+
+- [x] Working service
+- [x] Unit testing
+- [ ] Using enums for status
+- [ ] Force update a drone
+- [ ] Persist change in SQLite
+- [ ] Integration Testing
+- [ ] Create a simple frontend for easier testing
+
+## Credits
+
+- __Marco F.__ for his collection of [web-frameworks-templates](https://github.com/mfirry/web-frameworks-templates) in scala that helped me to decide wich framework to use.
+- __Daniela Sfregola__ for her awesome [tutorial](https://github.com/DanielaSfregola/quiz-management-service) and [series of articles](https://danielasfregola.com/2016/02/07/how-to-build-a-rest-api-with-akka-http/) about REST in scala. This repo is based (more like copied) on her work.
+- Everyone in __Scala Italy__ [slack](https://slack.scala-italy.it/) for all of my questions, you guys rocks
