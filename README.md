@@ -253,3 +253,4 @@ Server: akka-http/10.0.6
 
 - __Marco F.__ for his collection of [web-frameworks-templates](https://github.com/mfirry/web-frameworks-templates) in scala that helped me to decide wich framework to use.
 - __Daniela Sfregola__ for her awesome [tutorial](https://github.com/DanielaSfregola/quiz-management-service) and [series of articles](https://danielasfregola.com/2016/02/07/how-to-build-a-rest-api-with-akka-http/) about REST in scala. This repo is based (more like copied) on her work.
+- Everyone in __Scala Italy__ [slack](https://slack.scala-italy.it/) for all of my questions, you guys rocks
