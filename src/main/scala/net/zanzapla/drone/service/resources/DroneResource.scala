@@ -24,8 +24,8 @@ trait DroneResource extends MyResource {
           } ~
           put {
             entity(as[DroneUpdate]) { droneUpdate =>
-              validate( droneService.validateUpdate(droneUpdate) , "invalid Status") {
-                complete(droneService.updateDrone(id, droneUpdate))
+              validate( droneService.validateUpdate(droneUpdate) , "Invalid Status") {
+                complete(droneService.updateDroneWithPayload(id, droneUpdate))
               }
             }
           }

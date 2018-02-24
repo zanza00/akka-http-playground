@@ -52,7 +52,7 @@ class DroneService(implicit val executionContext: ExecutionContext) {
 
   }
 
-  def updateDrone(id: Int, update: DroneUpdate): Future[Option[Drone]] = {
+  def updateDroneWithPayload(id: Int, update: DroneUpdate): Future[Option[Drone]] = {
 
     def updateEntity(drone: Drone): Drone = {
       val status = update.status.getOrElse(drone.status)
@@ -73,12 +73,12 @@ class DroneService(implicit val executionContext: ExecutionContext) {
   }
 
   def validateUpdate(update: DroneUpdate): Boolean = {
+    println(update)
     update.status.getOrElse("default") match {
       case IN => true
       case OUT => true
       case _ => false
     }
-
   }
 
   def deleteDrone(id: Int): Future[Unit] = Future {
