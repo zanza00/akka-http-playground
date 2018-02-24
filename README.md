@@ -230,7 +230,7 @@ Server: akka-http/10.0.6
 [
     {
         "id": 3,
-        "status": "IN"
+        "status": "OUT"
     },
     {
         "id": 1,
@@ -241,7 +241,15 @@ Server: akka-http/10.0.6
 
 ## Todo
 
+- [x] Working service
+- [x] Unit testing
+- [ ] Using enums for status
+- [ ] Force update a drone
+- [ ] Persist change in SQLite
+- [ ] Integration Testing
+- [ ] Create a simple frontend for easier testing
+
 ## Credits
 
-- __Marco F.__ for his collection of [web-frameworks-templates](https://github.com/mfirry/web-frameworks-templates) in scala  
-- __Daniela Sfregola__ for her awesome [tutorial](https://github.com/DanielaSfregola/quiz-management-service) and [series of articles](https://danielasfregola.com/2016/02/07/how-to-build-a-rest-api-with-akka-http/) about REST in scala. This repo is based on her work. 
+- __Marco F.__ for his collection of [web-frameworks-templates](https://github.com/mfirry/web-frameworks-templates) in scala that helped me to decide wich framework to use.
+- __Daniela Sfregola__ for her awesome [tutorial](https://github.com/DanielaSfregola/quiz-management-service) and [series of articles](https://danielasfregola.com/2016/02/07/how-to-build-a-rest-api-with-akka-http/) about REST in scala. This repo is based (more like copied) on her work.
