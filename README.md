@@ -13,10 +13,16 @@ Clone the repository:
 Run the service:
 
 ```bash
-❯ sbt run
+❯ cd akka-http-playground && sbt run
 ```
 
 The service runs on port 5000 by default.
+
+For development purpouses it's possible to use hot reloading vith the following commands
+
+```bash
+❯ sbt ~reStart
+```
 
 ## Docker
 
@@ -67,13 +73,14 @@ Host: localhost:5000
 User-Agent: HTTPie/0.9.9
 
 HTTP/1.1 200 OK
-Content-Length: 23
+Content-Length: 56
 Content-Type: application/json
-Date: Sat, 24 Feb 2018 12:21:43 GMT
+Date: Sun, 25 Feb 2018 17:19:28 GMT
 Server: akka-http/10.0.6
 
 {
     "id": 1,
+    "lastSeen": "25/02/2018 18:19:27",
     "status": "OUT"
 }
 ```
@@ -94,20 +101,21 @@ Host: localhost:5000
 User-Agent: HTTPie/0.9.9
 
 HTTP/1.1 200 OK
-Content-Length: 22
+Content-Length: 55
 Content-Type: application/json
-Date: Sat, 24 Feb 2018 12:41:34 GMT
+Date: Sun, 25 Feb 2018 17:19:57 GMT
 Server: akka-http/10.0.6
 
 {
     "id": 1,
+    "lastSeen": "25/02/2018 18:19:57",
     "status": "IN"
 }
 ```
 
 #### Forcing the drone status
 
-You can update the status of a drone using _ID_ using __PUT__ and specifying the status in the body of the request
+You can update the status of a drone using _ID_ using __PUT__ and specifying the status in the body of the request. In this way the _lastSeen_ field is not updated.
 
 Request:
 
@@ -132,13 +140,14 @@ User-Agent: HTTPie/0.9.9
 }
 
 HTTP/1.1 200 OK
-Content-Length: 23
+Content-Length: 56
 Content-Type: application/json
-Date: Sun, 25 Feb 2018 15:42:53 GMT
+Date: Sun, 25 Feb 2018 17:21:03 GMT
 Server: akka-http/10.0.6
 
 {
     "id": 1,
+    "lastSeen": "25/02/2018 18:19:57",
     "status": "OUT"
 }
 ```
@@ -220,7 +229,7 @@ It's possible to get the status of any drone by using __GET__.
 Request:
 
 ```bash
-> http -v localhost:5000/drones/1
+❯ http -v localhost:5000/drones/1
 ```
 
 Response:
@@ -234,16 +243,16 @@ Host: localhost:5000
 User-Agent: HTTPie/0.9.9
 
 HTTP/1.1 200 OK
-Content-Length: 22
+Content-Length: 56
 Content-Type: application/json
-Date: Sat, 24 Feb 2018 12:45:07 GMT
+Date: Sun, 25 Feb 2018 17:22:17 GMT
 Server: akka-http/10.0.6
 
 {
     "id": 1,
-    "status": "IN"
+    "lastSeen": "25/02/2018 18:19:57",
+    "status": "OUT"
 }
-
 ```
 
 If the drone it's not found the service will respond accordingly
@@ -251,7 +260,7 @@ If the drone it's not found the service will respond accordingly
 Request:
 
 ```bash
-> http -v localhost:5000/drones/1000
+❯ http -v localhost:5000/drones/1000
 ```
 
 Response:
@@ -296,19 +305,22 @@ Host: localhost:5000
 User-Agent: HTTPie/0.9.9
 
 
+
 HTTP/1.1 200 OK
-Content-Length: 47
+Content-Length: 115
 Content-Type: application/json
-Date: Sat, 24 Feb 2018 13:04:03 GMT
+Date: Sun, 25 Feb 2018 17:23:48 GMT
 Server: akka-http/10.0.6
 
 [
     {
-        "id": 3,
+        "id": 1,
+        "lastSeen": "25/02/2018 18:19:57",
         "status": "OUT"
     },
     {
-        "id": 1,
+        "id": 3,
+        "lastSeen": "25/02/2018 18:23:35",
         "status": "IN"
     }
 ]
@@ -319,7 +331,7 @@ Server: akka-http/10.0.6
 - [x] Working service
 - [x] Unit testing
 - [x] Force update a drone
-- [ ] Implement last seen field
+- [x] Implement last seen field
 - [ ] Using enums for status
 - [ ] Persist change in SQLite
 - [ ] Integration Testing
