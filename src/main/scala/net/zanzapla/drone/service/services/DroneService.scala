@@ -12,7 +12,7 @@ class DroneService(implicit val executionContext: ExecutionContext) {
 
   val IN = "IN"
   val OUT = "OUT"
-  
+
 
   def getDrones(): Future[List[Drone]] = Future {
     dronesDB.toList
