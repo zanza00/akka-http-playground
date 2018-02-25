@@ -1,5 +1,7 @@
 package net.zanzapla.drone.service.services
 
+import java.util.Date
+
 import net.zanzapla.drone.service.entities.{Drone, DroneUpdate}
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -37,12 +39,13 @@ class DroneService(implicit val executionContext: ExecutionContext) {
         case IN => OUT
         case _ => OUT
       }
-      Drone(id.toInt, status)
+      val lastSeen = new Date()
+      Drone(id, status, lastSeen)
     }
 
 
     getDrone(id).flatMap {
-      case None => createDrone(Drone(id.toInt, OUT)) // Not Found needs to be created
+      case None => createDrone(Drone(id.toInt, OUT, new Date())) // Not Found needs to be created
       case Some(drone) =>
         val updatedDrone = changeStatus(drone)
         deleteDrone(id).flatMap(_ =>
@@ -56,7 +59,7 @@ class DroneService(implicit val executionContext: ExecutionContext) {
 
     def updateEntity(drone: Drone): Drone = {
       val status = update.status.getOrElse(drone.status)
-      Drone(id.toInt, status)
+      Drone(id, status, drone.lastSeen)
     }
 
     getDrone(id).flatMap {

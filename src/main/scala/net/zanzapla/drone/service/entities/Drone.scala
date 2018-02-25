@@ -1,3 +1,5 @@
 package net.zanzapla.drone.service.entities
 
-case class Drone(id: Int, status: String)
+import java.util.Date
+
+case class Drone(id: Int, status: String, lastSeen: Date)
