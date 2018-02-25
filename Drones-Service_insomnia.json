@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-02-24T14:53:18.600Z",
+	"__export_date": "2018-02-25T13:37:52.031Z",
 	"__export_source": "insomnia.desktop.app:v5.14.7",
 	"resources": [
 		{
@@ -39,8 +39,8 @@
 			"description": "",
 			"environment": {},
 			"metaSortKey": -1519253025952,
-			"modified": 1519253025951,
-			"name": "1",
+			"modified": 1519563190487,
+			"name": "drones/1",
 			"parentId": "wrk_1089bb5f2de347c995b71cc4b3f4547a",
 			"_type": "request_group"
 		},
@@ -50,8 +50,8 @@
 			"description": "",
 			"environment": {},
 			"metaSortKey": -1519253025902,
-			"modified": 1519253047854,
-			"name": "2",
+			"modified": 1519563201246,
+			"name": "drones/2",
 			"parentId": "wrk_1089bb5f2de347c995b71cc4b3f4547a",
 			"_type": "request_group"
 		},
@@ -61,8 +61,8 @@
 			"description": "",
 			"environment": {},
 			"metaSortKey": -1519253025852,
-			"modified": 1519253676485,
-			"name": "3",
+			"modified": 1519563209239,
+			"name": "drones/3",
 			"parentId": "wrk_1089bb5f2de347c995b71cc4b3f4547a",
 			"_type": "request_group"
 		},
@@ -72,30 +72,21 @@
 			"description": "",
 			"environment": {},
 			"metaSortKey": -1519253025802,
-			"modified": 1519326680857,
-			"name": "fancy string",
+			"modified": 1519563222008,
+			"name": "drones/string",
 			"parentId": "wrk_1089bb5f2de347c995b71cc4b3f4547a",
 			"_type": "request_group"
 		},
 		{
-			"_id": "req_20a36553018549ee8f119ccc8eee3510",
-			"authentication": {},
-			"body": {},
-			"created": 1519245389748,
+			"_id": "fld_a2e7baa64f1c4c92b21cdc201155f9b2",
+			"created": 1519563286822,
 			"description": "",
-			"headers": [],
-			"metaSortKey": -1519245389749,
-			"method": "GET",
-			"modified": 1519427125749,
-			"name": "drones",
-			"parameters": [],
+			"environment": {},
+			"metaSortKey": -1519245389649,
+			"modified": 1519563292895,
+			"name": "drones/",
 			"parentId": "wrk_1089bb5f2de347c995b71cc4b3f4547a",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "http://localhost:5000/drones",
-			"_type": "request"
+			"_type": "request_group"
 		},
 		{
 			"_id": "req_a44cc73a099747d892492b5176a947f4",
@@ -115,7 +106,7 @@
 			],
 			"metaSortKey": -1519251116901.25,
 			"method": "POST",
-			"modified": 1519253033264,
+			"modified": 1519563417120,
 			"name": "drones/1",
 			"parameters": [],
 			"parentId": "fld_6d7faec5a5ee4376b1371e5e7eb3000a",
@@ -146,6 +137,151 @@
 			"method": "GET",
 			"modified": 1519253034831,
 			"name": "drones/1",
+			"parameters": [],
+			"parentId": "fld_6d7faec5a5ee4376b1371e5e7eb3000a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:5000/drones/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_7baef09ea84447fab9b099b37daea687",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{ \"status\": \"incorrect\"}"
+			},
+			"created": 1519486193949,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_05d9d84c1717465d8e6e0514c5b984e9",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"metaSortKey": -1519248253300.125,
+			"method": "PUT",
+			"modified": 1519563678772,
+			"name": "drones/1 (Incorrect status)",
+			"parameters": [],
+			"parentId": "fld_6d7faec5a5ee4376b1371e5e7eb3000a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:5000/drones/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_cde751ca58a74c4387e59db3527d4fc0",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{ \"status\": \"OUT\"}"
+			},
+			"created": 1519492835885,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_05d9d84c1717465d8e6e0514c5b984e9",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"metaSortKey": -1519246821524.5625,
+			"method": "PUT",
+			"modified": 1519562754236,
+			"name": "drones/1 (Correct payload)",
+			"parameters": [],
+			"parentId": "fld_6d7faec5a5ee4376b1371e5e7eb3000a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:5000/drones/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_df5809593d19471f9202d52c4f6b1a38",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{ \"status\": \"\"}"
+			},
+			"created": 1519563643038,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_05d9d84c1717465d8e6e0514c5b984e9",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"metaSortKey": -1519247537412.3438,
+			"method": "PUT",
+			"modified": 1519563685761,
+			"name": "drones/1 (Empty status)",
+			"parameters": [],
+			"parentId": "fld_6d7faec5a5ee4376b1371e5e7eb3000a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:5000/drones/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_cdd57c9dde4346c89a66178a0136e1de",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{  }"
+			},
+			"created": 1519564119762,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_05d9d84c1717465d8e6e0514c5b984e9",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"metaSortKey": -1519247179468.4531,
+			"method": "PUT",
+			"modified": 1519565228328,
+			"name": "drones/1 (Wrong keys)",
+			"parameters": [],
+			"parentId": "fld_6d7faec5a5ee4376b1371e5e7eb3000a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:5000/drones/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_b63a9541a2a44dce8b29e1815a6eef4c",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{ \"not-my-key\": \"not-my-value\" }"
+			},
+			"created": 1519565204180,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_05d9d84c1717465d8e6e0514c5b984e9",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"metaSortKey": -1519247000496.5078,
+			"method": "PUT",
+			"modified": 1519565221596,
+			"name": "drones/1 (Empty body)",
 			"parameters": [],
 			"parentId": "fld_6d7faec5a5ee4376b1371e5e7eb3000a",
 			"settingDisableRenderRequestBody": false,
@@ -214,6 +350,35 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_b83f078743354ea883f35f87509d7ac7",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{ \"status\": \"OUT\"}"
+			},
+			"created": 1519489770550,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_05d9d84c1717465d8e6e0514c5b984e9",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"metaSortKey": -1519251116801.25,
+			"method": "PUT",
+			"modified": 1519562779357,
+			"name": "drones/2 (Correct payload)",
+			"parameters": [],
+			"parentId": "fld_62984bc484d449e48dffa4c0ba0c4d5b",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:5000/drones/2",
+			"_type": "request"
+		},
+		{
 			"_id": "req_8fa4a381ff4a4b789afcac9d13ffa9aa",
 			"authentication": {},
 			"body": {
@@ -272,11 +437,40 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_de8266fbf12f45d49bca346ec600411e",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{ \"status\": \"OUT\"}"
+			},
+			"created": 1519565819892,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_05d9d84c1717465d8e6e0514c5b984e9",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"metaSortKey": -1519251116801.25,
+			"method": "PUT",
+			"modified": 1519565839258,
+			"name": "drones/3 (Correct payload)",
+			"parameters": [],
+			"parentId": "fld_8dcbf5bff9e14276aae01758c7c32a25",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:5000/drones/3",
+			"_type": "request"
+		},
+		{
 			"_id": "req_976fdfc7071d4aea9c503902090ee627",
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{}"
+				"text": ""
 			},
 			"created": 1519326671073,
 			"description": "",
@@ -289,7 +483,7 @@
 			],
 			"metaSortKey": -1519251116901.25,
 			"method": "POST",
-			"modified": 1519326701035,
+			"modified": 1519563176689,
 			"name": "drones/string",
 			"parameters": [],
 			"parentId": "fld_f0cd9a342f5b4de3972e45ed6e183552",
@@ -327,6 +521,75 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "http://localhost:5000/drones/string",
+			"_type": "request"
+		},
+		{
+			"_id": "req_067e0c0fc38b427c8d4f45cf9936b690",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{ \"status\": \"OUT\"}"
+			},
+			"created": 1519490842418,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_05d9d84c1717465d8e6e0514c5b984e9",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"metaSortKey": -1519251116801.25,
+			"method": "PUT",
+			"modified": 1519565804070,
+			"name": "drones/string",
+			"parameters": [],
+			"parentId": "fld_f0cd9a342f5b4de3972e45ed6e183552",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:5000/drones/string",
+			"_type": "request"
+		},
+		{
+			"_id": "req_20a36553018549ee8f119ccc8eee3510",
+			"authentication": {},
+			"body": {},
+			"created": 1519245389748,
+			"description": "",
+			"headers": [],
+			"metaSortKey": -1519245389749,
+			"method": "GET",
+			"modified": 1519563297688,
+			"name": "drones",
+			"parameters": [],
+			"parentId": "fld_a2e7baa64f1c4c92b21cdc201155f9b2",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:5000/drones",
+			"_type": "request"
+		},
+		{
+			"_id": "req_b2387df441b140e3a8e3bf99bc209c58",
+			"authentication": {},
+			"body": {},
+			"created": 1519563252258,
+			"description": "",
+			"headers": [],
+			"metaSortKey": -1519245389699,
+			"method": "POST",
+			"modified": 1519563296328,
+			"name": "drones",
+			"parameters": [],
+			"parentId": "fld_a2e7baa64f1c4c92b21cdc201155f9b2",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:5000/drones",
 			"_type": "request"
 		}
 	]

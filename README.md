@@ -244,7 +244,7 @@ Server: akka-http/10.0.6
 - [x] Working service
 - [x] Unit testing
 - [ ] Using enums for status
-- [ ] Force update a drone
+- [x] Force update a drone
 - [ ] Persist change in SQLite
 - [ ] Integration Testing
 - [ ] Create a simple frontend for easier testing
