@@ -8,3 +8,5 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.2.0-M8")
 addSbtPlugin("com.typesafe.sbt" % "sbt-multi-jvm" % "0.3.11")
 
 addSbtPlugin("com.artima.supersafe" % "sbtplugin" % "1.1.3")
+
+addSbtPlugin("io.spray" % "sbt-revolver" % "0.9.1")

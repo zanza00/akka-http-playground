@@ -1,6 +1,6 @@
 package net.zanzapla.drone.service.services
 
-import net.zanzapla.drone.service.entities.Drone
+import net.zanzapla.drone.service.entities.{Drone, DroneUpdate}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -10,6 +10,7 @@ class DroneService(implicit val executionContext: ExecutionContext) {
 
   val IN = "IN"
   val OUT = "OUT"
+  val allowedStatus = List(IN, OUT);
 
   def getDrones(): Future[List[Drone]] = Future {
     dronesDB.toList
@@ -21,19 +22,20 @@ class DroneService(implicit val executionContext: ExecutionContext) {
 
   def createDrone(drone: Drone): Future[Option[Drone]] = Future {
     dronesDB.find(_.id == drone.id) match {
-      case Some(d) => None // Conflict! id is already taken
+      case Some(_) => None // Conflict! id is already taken
       case None =>
         dronesDB = dronesDB :+ drone
         Some(drone)
     }
   }
 
-  def updateDrone(id: Int): Future[Option[Drone]] =  {
+  def updateDrone(id: Int): Future[Option[Drone]] = {
 
-    def updateEntity(drone: Drone): Drone = {
+    def changeStatus(drone: Drone): Drone = {
       val status: String = drone.status match {
         case OUT => IN
         case IN => OUT
+        case _ => OUT
       }
       Drone(id.toInt, status)
     }
@@ -42,12 +44,40 @@ class DroneService(implicit val executionContext: ExecutionContext) {
     getDrone(id).flatMap {
       case None => createDrone(Drone(id.toInt, OUT)) // Not Found needs to be created
       case Some(drone) =>
+        val updatedDrone = changeStatus(drone)
+        deleteDrone(id).flatMap(_ =>
+          createDrone(updatedDrone).map(_ => Some(updatedDrone))
+        )
+    }
+
+  }
+
+  def updateDroneWithPayload(id: Int, update: DroneUpdate): Future[Option[Drone]] = {
+
+    def updateEntity(drone: Drone): Drone = {
+      val status = update.status.getOrElse(drone.status)
+      Drone(id.toInt, status)
+    }
+
+    getDrone(id).flatMap {
+      case None => Future {
+        None
+      }
+      case Some(drone) =>
         val updatedDrone = updateEntity(drone)
         deleteDrone(id).flatMap(_ =>
           createDrone(updatedDrone).map(_ => Some(updatedDrone))
         )
     }
 
+  }
+
+  def validateUpdate(update: DroneUpdate): Boolean = {
+    update.status.getOrElse("default") match {
+      case IN => true
+      case OUT => true
+      case _ => false
+    }
   }
 
   def deleteDrone(id: Int): Future[Unit] = Future {

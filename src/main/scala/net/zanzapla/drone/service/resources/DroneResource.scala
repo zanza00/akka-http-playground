@@ -21,16 +21,31 @@ trait DroneResource extends MyResource {
         } ~
           post {
             complete(droneService.updateDrone(id))
+          } ~
+          put {
+            entity(as[DroneUpdate]) { droneUpdate =>
+              if (droneService.validateUpdate(droneUpdate)) {
+                complete(droneService.updateDroneWithPayload(id, droneUpdate))
+              } else {
+                droneUpdate.status match {
+                  case None => completeWithError(400, "The body of the request has not a [status]")
+                  case _ => completeWithError(400, s"invalid status: '${droneUpdate.status.get}'")
+                }
+              }
+            }
           }
       } ~
-    path(Segment) { _ =>
-      get{
-        completeWithError(406, "invalid ID")
-      } ~
-        post {
-          completeWithError(406, "invalid ID")
-        }
-    }
+      path(Segment) { thing =>
+        val message = s"invalid ID :$thing"
+        get {
+          completeWithError(406, message)
+        } ~
+          post {
+            completeWithError(406, message)
+          } ~
+          put {
+            completeWithError(406, message)
+          }
+      }
   }
 }
-
