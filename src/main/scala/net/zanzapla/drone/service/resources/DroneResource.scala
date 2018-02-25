@@ -24,25 +24,27 @@ trait DroneResource extends MyResource {
           } ~
           put {
             entity(as[DroneUpdate]) { droneUpdate =>
-              validate( droneService.validateUpdate(droneUpdate) , "Invalid Status") {
+              if (droneService.validateUpdate(droneUpdate)) {
                 complete(droneService.updateDroneWithPayload(id, droneUpdate))
+              } else {
+                droneUpdate.status match {
+                  case None => completeWithError(400, "The body of the request has not a [status]")
+                  case _ => completeWithError(400, s"invalid status: '${droneUpdate.status.get}'")
+                }
               }
             }
           }
       } ~
       path(Segment) { thing =>
+        val message = s"invalid ID :$thing"
         get {
-          completeWithError(406, "invalid ID")
+          completeWithError(406, message)
         } ~
           post {
-            completeWithError(406, "invalid ID")
+            completeWithError(406, message)
           } ~
           put {
-            val pattern = "([0-9])+".r
-            thing match {
-              case pattern(c) => completeWithError(406, "invalid Status")
-              case _ => completeWithError(406, "invalid ID")
-            }
+            completeWithError(406, message)
           }
       }
   }

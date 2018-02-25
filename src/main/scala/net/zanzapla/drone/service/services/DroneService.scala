@@ -73,7 +73,6 @@ class DroneService(implicit val executionContext: ExecutionContext) {
   }
 
   def validateUpdate(update: DroneUpdate): Boolean = {
-    println(update)
     update.status.getOrElse("default") match {
       case IN => true
       case OUT => true
