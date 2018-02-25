@@ -282,7 +282,7 @@ Server: akka-http/10.0.6
 
 #### Get Errors
 
-If it's called with an incorrect _ID_ (i.e. not an _Int_) the same response as [POST](#-Update-Errors) will be given.
+If it's called with an incorrect _ID_ (i.e. not an _Int_) the same response as [POST](#update-errors) will be given.
 
 ### Get all drones
 
