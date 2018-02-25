@@ -18,12 +18,6 @@ Run the service:
 
 The service runs on port 5000 by default.
 
-For development purpouses it's possible to use hot reloading vith the following commands
-
-```bash
-❯ sbt ~reStart
-```
-
 ## Docker
 
 This repo can be run with Docker, first you need to build
@@ -40,9 +34,23 @@ Once the build it's finished, you can run it using the tag
 
 This exposes the webserver on port 5000 for consistency
 
+## Development
+
+For development purposes it's possible to use hot reloading with the following commands
+
+```bash
+❯ sbt ~reStart
+```
+
+There are also unit test in `src/test/scala/ServiceSpec.scala`, to run them use
+
+```bash
+❯ sbt test
+```
+
 ## Usage
 
-The service use one endpoint `/drones` for all of it's operations
+The service use one endpoint `/drones` for all of its operations
 
 For the rest of this guide I will be using [HTTPie](https://httpie.org/) because I like it :sunglasses:
 
@@ -339,6 +347,6 @@ Server: akka-http/10.0.6
 
 ## Credits
 
-- __Marco F.__ for his collection of [web-frameworks-templates](https://github.com/mfirry/web-frameworks-templates) in scala that helped me to decide wich framework to use.
+- __Marco F.__ for his collection of [web-frameworks-templates](https://github.com/mfirry/web-frameworks-templates) in scala that helped me to decide which framework to use.
 - __Daniela Sfregola__ for her awesome [tutorial](https://github.com/DanielaSfregola/quiz-management-service) and [series of articles](https://danielasfregola.com/2016/02/07/how-to-build-a-rest-api-with-akka-http/) about REST in scala. This repo is based (more like copied) on her work.
 - Everyone in __Scala Italy__ [slack](https://slack.scala-italy.it/) for all of my questions, you guys rocks
