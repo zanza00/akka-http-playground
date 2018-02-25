@@ -1,3 +1,5 @@
+import java.util.Date
+
 import akka.http.scaladsl.model.{HttpEntity, StatusCodes}
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import net.zanzapla.drone.service.entities.{Drone, DroneUpdate}
@@ -17,6 +19,9 @@ class ServiceSpec extends WordSpec with Matchers with ScalatestRouteTest with Mo
 
   override def executionContext: ExecutionContext = global
 
+  val date1: Date = new Date(1519574400000L)
+  val date2: Date = new Date(1519578000000L)
+
   "The service" should {
 
     "return an empty list when there are no known drone" in {
@@ -32,11 +37,11 @@ class ServiceSpec extends WordSpec with Matchers with ScalatestRouteTest with Mo
 
     "return the list of the drones if there are any" in {
       (droneService.getDrones _).expects().returning(Future {
-        List(Drone(1, "OUT"), Drone(2, "IN"))
+        List(Drone(1, "OUT", date1), Drone(2, "IN", date2))
       })
       Get("/drones") ~> droneRoutes ~> check {
         contentType shouldBe `application/json`
-        responseAs[List[Drone]] shouldEqual List(Drone(1, "OUT"), Drone(2, "IN"))
+        responseAs[List[Drone]] shouldEqual List(Drone(1, "OUT", date1), Drone(2, "IN", date2))
         status shouldBe StatusCodes.OK
       }
     }
@@ -66,50 +71,50 @@ class ServiceSpec extends WordSpec with Matchers with ScalatestRouteTest with Mo
 
     "create an entry for the drone 1 and then check it" in {
       (droneService.updateDrone _).expects(1).returning(Future {
-        Some(Drone(1, "OUT"))
+        Some(Drone(1, "OUT", date1))
       })
       Post("/drones/1") ~> droneRoutes ~> check {
         contentType shouldBe `application/json`
-        responseAs[Drone] shouldEqual Drone(1, "OUT")
+        responseAs[Drone] shouldEqual Drone(1, "OUT", date1)
         status shouldBe StatusCodes.OK
       }
       (droneService.getDrone _).expects(1).returning(Future {
-        Some(Drone(1, "OUT"))
+        Some(Drone(1, "OUT", date1))
       })
       Get("/drones/1") ~> droneRoutes ~> check {
         contentType shouldBe `application/json`
-        responseAs[Drone] shouldEqual Drone(1, "OUT")
+        responseAs[Drone] shouldEqual Drone(1, "OUT", date1)
         status shouldBe StatusCodes.OK
       }
     }
 
     "update an entry for the drone 2" in {
       (droneService.updateDrone _).expects(2).returning(Future {
-        Some(Drone(2, "OUT"))
+        Some(Drone(2, "OUT", date1))
       })
       Post("/drones/2") ~> droneRoutes ~> check {
         contentType shouldBe `application/json`
-        responseAs[Drone] shouldEqual Drone(2, "OUT")
+        responseAs[Drone] shouldEqual Drone(2, "OUT", date1)
         status shouldBe StatusCodes.OK
       }
       (droneService.updateDrone _).expects(2).returning(Future {
-        Some(Drone(2, "IN"))
+        Some(Drone(2, "IN", date1))
       })
       Post("/drones/2") ~> droneRoutes ~> check {
         contentType shouldBe `application/json`
-        responseAs[Drone] shouldEqual Drone(2, "IN")
+        responseAs[Drone] shouldEqual Drone(2, "IN", date1)
         status shouldBe StatusCodes.OK
       }
     }
     "update an entry for the drone 2 with a specific status" in {
       (droneService.validateUpdate _).expects(*).returns(true)
       (droneService.updateDroneWithPayload _).expects(2, DroneUpdate(status = Some("OUT"))).returning(Future {
-        Some(Drone(2, "OUT"))
+        Some(Drone(2, "OUT", date1))
       })
 
       Put("/drones/2", HttpEntity(`application/json`, """{ "status": "OUT" }""")) ~> droneRoutes ~> check {
         contentType shouldBe `application/json`
-        responseAs[Drone] shouldEqual Drone(2, "OUT")
+        responseAs[Drone] shouldEqual Drone(2, "OUT", date1)
         status shouldBe StatusCodes.OK
       }
     }
